@@ -1,36 +1,66 @@
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Sketch extends PApplet {
 	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
+  PImage imgBackground;
+	PImage imgFish;
+  PImage imgPlant;
+  
+
+  float fltFishX = -100;
+  float fltFishY = 20;
+
+   float fltPlantX = 100;
+  float fltPlantY = 400;
+
+   float fltCirX = 100;
+  float fltCirY = width/10;
+
+  float fltCirSpeedX = 2;
+  float fltCirSpeedY = 1;
+
+  
+ 
   public void settings() {
-	// put your size call here
     size(400, 400);
   }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
+
   public void setup() {
-    background(210, 255, 173);
-  }
+   
+    imgPlant = loadImage("Plant.png");
+  imgPlant.resize(imgPlant.width/2,imgPlant.height/2);
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
-  public void draw() {
-	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
-
-    stroke(255);
-    line(50, 125, 70, 50);  
-  }
+    imgFish = loadImage("Fish.png");
+    imgFish.resize(imgPlant.width/2,imgPlant.height/2);
   
-  // define other methods down here.
+  imgBackground = loadImage("oceanbackground.jpg");
+
+
+}
+  
+
+ 
+  public void draw() {
+   
+    image(imgBackground,0,0);
+
+    image(imgFish,fltFishX,fltFishY);
+    fltFishX += 0.5;
+	  
+      image(imgPlant, fltPlantX, fltPlantY);
+    fltPlantY -= 1;
+
+   ellipse(fltCirX,fltCirY,10,10);
+    fltCirX += fltCirSpeedX;
+    fltCirY += fltCirSpeedY;
+
+    if (fltCirX < 0+10 || fltCirX > width-10) {
+      fltCirSpeedX *= -1;
+  }
+   if (fltCirY < 0+10  || fltCirY > height-10) {
+      fltCirSpeedY *= -1;
+    }
+  }
 }
